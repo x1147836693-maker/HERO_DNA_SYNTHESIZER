@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="main">
+
+    <div class="machine-panel">
+      <div id="p5canvas"></div>
+      <div id="pullInfoBar"></div>
+      <button class="pull-btn" id="pullBtn" onclick="triggerPull()" disabled>
+        CLAIM YOUR POWER 
+      </button>
+    </div>
+
+    <div class="stats-panel">
+      <div class="pull-counter">
+        PULLS: <strong id="pullCountDisplay">0</strong> / 6
+      </div>
+      <div class="stat-slots" id="statSlots"></div>
+      <div class="radar-section">
+        <div class="radar-title">POWER RADAR</div>
+        <canvas id="radarCanvas" width="180" height="180"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="resultOverlay">
+    <div class="result-box">
+      <div class="result-title">⚡ SYNTHESIS COMPLETE ⚡</div>
+      <div class="result-subtitle">Your unique hero has been forged from the DNA of legends</div>
+
+      <div class="result-radar-wrap">
+        <canvas id="resultRadar" width="180" height="180"></canvas>
+      </div>
+
+      <div class="name-section">
+        <input type="text" id="heroNameInput" placeholder="ENTER YOUR HERO NAME..." maxlength="30" />
+      </div>
+
+      <div class="dna-section-title">✦ SYNTHESISED APPEARANCE</div>
+      <div class="dna-grid" id="appearanceGrid"></div>
+
+      <div class="dna-section-title">✦ IDENTITY &amp; ORIGINS</div>
+      <div class="dna-grid" id="bioGrid"></div>
+
+      <div class="btn-row">
+        <button class="btn-reset" onclick="resetGame()">↺ SYNTHESIZE AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+  <script src="sketch.js"></script>
+
+</body>
+</html>
