@@ -1,21 +1,21 @@
-const CW       = 340;   // Canvas width
-const CH       = 480;   // Canvas height
-const MCX      = 170;   // Machine centre X
-const DOME_CY  = 148;   // Dome centre Y
-const DOME_R   = 95;    // Dome radius
-const TRAY_Y   = 425;   // Y position of the capsule tray (where it lands)
+const CW       = 340;   
+const CH       = 480;   
+const MCX      = 170;  
+const DOME_CY  = 148;  
+const DOME_R   = 95;   
+const TRAY_Y   = 425;   
 
 let animState    = 'IDLE';
 let handleAnimT = 0;
 
-let domeCapsules = [];    // Decorative capsules floating in the dome
-let dropX        = MCX;   // Capsule X position while falling
-let dropY        = 0;     // Capsule Y position while falling
-let dropVY       = 0;     // Capsule vertical velocity
-let dropColor    = '#fff';// Capsule colour (matches the stat)
+let domeCapsules = [];   
+let dropX        = MCX;  
+let dropY        = 0;   
+let dropVY       = 0;    
+let dropColor    = '#fff';
 
-let cardY        = 0;     // Y position of result card while rising
-let pendingResult = null; // The result object for the current pull
+let cardY        = 0;    
+let pendingResult = null; 
 let p5instance;
 
 new p5(function(p) {
@@ -28,9 +28,6 @@ new p5(function(p) {
     cardImg = p.loadImage('title.png');
   };
 
-
-  // ---- SETUP ----
-
 p.setup = function() {
     const cnv = p.createCanvas(CW, CH);
     cnv.parent('p5canvas');
@@ -40,8 +37,8 @@ p.setup = function() {
     
     for (let i = 0; i < 6; i++) {
       domeCapsules.push({
-        angle: (i / 6) * p.TWO_PI, // 将 6 颗宝石均匀分布在 360 度上
-        speed: 0.013,              // 绕圈的公转速度，数值越大转得越快
+        angle: (i / 6) * p.TWO_PI, 
+        speed: 0.013,              
         rad:   12, 
         col:   gemColors[i]
       });
@@ -109,7 +106,7 @@ p.setup = function() {
         dropVY = -dropVY * 0.45; // Bounce
       if (Math.abs(dropVY) < 1) {
         dropVY    = 0;
-        animState = 'REVEALING';  // 直接跳到卡片出现
+        animState = 'REVEALING';
         cardY     = TRAY_Y + 20;
 }
       }
