@@ -13,6 +13,7 @@
 body {
   background-color: var(--red);
   background-size: 13px 13px;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.22) 1.5px, transparent 1.5px);
   font-family: 'Bangers', cursive;
   min-height: 100vh;
   overflow-x: hidden;
