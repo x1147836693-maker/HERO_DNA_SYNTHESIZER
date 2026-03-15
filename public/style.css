@@ -1,3 +1,10 @@
+/*
+🟦 [Overview] 
+🟩 [Design Intent] 
+🟥 [HACK]
+🟪 [External Context] 
+*/
+
 * {
   margin: 0;
   padding: 0;
@@ -12,11 +19,27 @@
 
 body {
   background-color: var(--red);
-  background-size: 13px 13px;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.22) 1.5px, transparent 1.5px);
   font-family: 'Bangers', cursive;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/*
+  🟩 [Design Intent] The background image is on a ::before pseudo-element at
+  30% opacity rather than directly on body. This keeps it as a pure visual
+  layer — z-index: 0 and pointer-events: none mean it never interferes with
+  clicks, and the red body colour shows through as a tint.
+*/
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("marvel-background.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .main {
@@ -28,6 +51,9 @@ body {
   flex-wrap: wrap;
   min-height: 100vh;
 }
+
+
+/* ─── Machine panel ─── */
 
 .machine-panel {
   background: var(--yellow);
@@ -41,6 +67,7 @@ body {
   gap: 10px;
 }
 
+/* tab label above the machine panel */
 .machine-panel::before {
   content: '★  M Y S T I C P O R T A L  ★';
   position: absolute;
@@ -93,16 +120,12 @@ body {
   overflow: hidden;
 }
 
-.pull-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-size: 8px 8px;
-}
-
 .pull-btn:hover:not(:disabled)  { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #000; }
 .pull-btn:active:not(:disabled) { transform: translate(3px, 3px);   box-shadow: 2px 2px 0 #000; }
 .pull-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+
+/* ─── Stats panel ─── */
 
 .stats-panel {
   background: white;
@@ -161,7 +184,11 @@ body {
   transition: transform 0.15s;
 }
 
-/* Coloured fill bar behind stat */
+/*
+  🟩 [Design Intent] The fill bar is absolute-positioned behind the text so
+  the stat value readout always stays sharp on top. The 0.22 opacity keeps it
+  as a tint hint rather than overpowering the white card background.
+*/
 .slot-fill {
   position: absolute;
   top: 0; left: 0; bottom: 0;
@@ -174,7 +201,6 @@ body {
 .slot-from  { font-size: 10px; font-family: 'Comic Neue', cursive; color: #666; line-height: 1.2; }
 .slot-value { font-size: 26px; position: relative; z-index: 1; line-height: 1; }
 .slot-empty { color: #ccc; font-size: 20px; }
-
 
 .radar-section {
   border-top: 3px dashed #ccc;
@@ -193,6 +219,9 @@ body {
   border: 2px solid #eee;
   background: #fafafa;
 }
+
+
+/* ─── Result overlay ─── */
 
 #resultOverlay {
   display: none;
@@ -226,15 +255,6 @@ body {
   to   { transform: scale(1)   rotate(0deg);  opacity: 1; }
 }
 
-/* Halftone overlay on result box */
-.result-box::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-size: 10px 10px;
-  pointer-events: none;
-}
-
 .result-title {
   font-size: 26px;
   color: var(--red);
@@ -262,7 +282,6 @@ body {
   background: white;
 }
 
-/* Section titles inside result */
 .dna-section-title {
   font-size: 14px;
   letter-spacing: 3px;
@@ -275,7 +294,7 @@ body {
   z-index: 1;
 }
 
-/* 2-column grid of data cards */
+/* 2-column grid of data cards inside the result overlay */
 .dna-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -292,15 +311,15 @@ body {
   text-align: left;
 }
 
-/* Highlighted card (e.g. non-human race, missing stat) */
-.dna-card.hl { border-color: var(--red); }
+/* highlighted card: non-human race or missing stat */
+.dna-card.hl             { border-color: var(--red); }
 .dna-card.hl .dna-card-value { color: var(--red); }
 
 .dna-card-label  { font-size: 10px; letter-spacing: 2px; color: #888; margin-bottom: 2px; }
 .dna-card-value  { font-size: 15px; color: var(--blue); line-height: 1.2; word-break: break-word; }
 .dna-card-source { font-size: 9px; font-family: 'Comic Neue', cursive; color: #aaa; font-style: italic; }
 
-/* Hero name section */
+/* hero name input */
 .name-section {
   margin-bottom: 16px;
   position: relative;
@@ -323,32 +342,6 @@ body {
   z-index: 1;
 }
 
-.result-trait {
-  font-size: 13px;
-  font-family: 'Comic Neue', cursive;
-  color: #333;
-  background: white;
-  border: 2px solid #000;
-  padding: 6px 12px;
-  margin-bottom: 14px;
-  font-style: italic;
-  position: relative;
-  z-index: 1;
-}
-
-.result-quote {
-  font-size: 11px;
-  font-family: 'Comic Neue', cursive;
-  color: #555;
-  border-top: 2px dashed #000;
-  padding-top: 10px;
-  margin-bottom: 14px;
-  font-style: italic;
-  position: relative;
-  z-index: 1;
-}
-
-/* Bottom buttons */
 .btn-row {
   display: flex;
   gap: 10px;
