@@ -1,3 +1,21 @@
+<!--
+🟦 [Overview] 
+🟩 [Design Intent] 
+🟥 [HACK]
+🟪 [External Context] 
+-->
+<!--
+  🟦 [Overview] index.html
+  ─────────────────────────────────────
+  Shell page. Loads all assets and defines the DOM structure.
+  All interactive logic lives in game.js and sketch.js.
+
+  Script load order matters:
+    game.js   must load before sketch.js because sketch.js reads
+    STAT_COLORS / STAT_LABELS / drawnStats from game.js
+    and calls onRevealComplete() which is defined in game.js.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,23 +23,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="main">
 
+    <!-- left panel: p5 machine canvas + pull button -->
     <div class="machine-panel">
       <div id="p5canvas"></div>
       <div id="pullInfoBar"></div>
       <button class="pull-btn" id="pullBtn" onclick="triggerPull()" disabled>
-        CLAIM YOUR POWER 
+        CLAIM YOUR POWER
       </button>
     </div>
 
+    <!-- right panel: live stat slots + radar chart -->
     <div class="stats-panel">
       <div class="pull-counter">
         PULLS: <strong id="pullCountDisplay">0</strong> / 6
@@ -35,6 +53,7 @@
 
   </div>
 
+  <!-- final synthesis result overlay (hidden until all 6 pulls complete) -->
   <div id="resultOverlay">
     <div class="result-box">
       <div class="result-title">⚡ SYNTHESIS COMPLETE ⚡</div>
@@ -60,6 +79,7 @@
     </div>
   </div>
 
+  <!-- game.js must come before sketch.js -->
   <script src="game.js"></script>
   <script src="sketch.js"></script>
 
